@@ -120,6 +120,19 @@ export class NgpMenuTrigger<T = unknown> {
   });
 
   /**
+   * Define an anchor element for positioning the menu.
+   * If provided, the menu will be positioned relative to this element instead of the trigger.
+   *
+   * The anchor is live, so rebinding it moves an open menu.
+   *
+   * An input only reaches this directive on the next change detection pass, which a press
+   * can outrun - use `setAnchor()` instead when the anchor is claimed during one.
+   */
+  readonly anchor = input<HTMLElement | null>(null, {
+    alias: 'ngpMenuTriggerAnchor',
+  });
+
+  /**
    * Define which trigger types are enabled for the menu.
    * @default ['click']
    */
@@ -159,6 +172,7 @@ export class NgpMenuTrigger<T = unknown> {
     scrollBehavior: this.scrollBehavior,
     cooldown: this.cooldown,
     context: this.context as Signal<T>,
+    anchor: this.anchor,
     triggers: this.triggers,
     showDelay: this.showDelay,
     hideDelay: this.hideDelay,
@@ -186,6 +200,21 @@ export class NgpMenuTrigger<T = unknown> {
    */
   toggle(event: MouseEvent): void {
     this.state.toggle(event);
+  }
+
+  /**
+   * Set the anchor the menu is positioned against, taking effect immediately rather than
+   * on the next change detection pass.
+   *
+   * Reach for this over `ngpMenuTriggerAnchor` when the anchor is claimed during a press.
+   * Outside-press dismissal is decided on a capture-phase `mouseup`, which a fast tap can
+   * deliver in the same frame as the `pointerdown` that claimed the anchor - before the
+   * binding has reached this directive, so the press dismisses the menu instead of moving
+   * it. Writing the anchor here is visible to that check straight away.
+   * @param anchor - The new anchor element
+   */
+  setAnchor(anchor: HTMLElement | null): void {
+    this.state.setAnchor(anchor);
   }
 }
 

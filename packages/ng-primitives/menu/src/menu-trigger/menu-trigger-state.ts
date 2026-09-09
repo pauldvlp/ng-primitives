@@ -78,6 +78,12 @@ export interface NgpMenuTriggerState<T = unknown> {
   readonly context: WritableSignal<T>;
 
   /**
+   * Define an anchor element for positioning the menu.
+   * If provided, the menu will be positioned relative to this element instead of the trigger.
+   */
+  readonly anchor: WritableSignal<HTMLElement | null>;
+
+  /**
    * The focus origin that was used to open the menu.
    * @internal
    */
@@ -112,6 +118,18 @@ export interface NgpMenuTriggerState<T = unknown> {
    * @param context - The new context
    */
   setContext(context: T): void;
+
+  /**
+   * Set the anchor element the menu is positioned against. An open menu moves to the
+   * new anchor.
+   *
+   * When re-anchoring in response to a press, do it on `pointerdown` rather than `click`:
+   * outside-press dismissal is decided on a capture-phase `mouseup`, which runs before
+   * a bubbling `click`, so an anchor claimed there arrives too late and the press that
+   * was meant to move the menu dismisses it instead.
+   * @param anchor - The new anchor element
+   */
+  setAnchor(anchor: HTMLElement | null): void;
 
   /**
    * Set the container in which the menu should be attached. Takes effect the
@@ -191,6 +209,11 @@ export interface NgpMenuTriggerProps<T = unknown> {
    */
   readonly context?: Signal<T>;
   /**
+   * Define an anchor element for positioning the menu.
+   * If provided, the menu will be positioned relative to this element instead of the trigger.
+   */
+  readonly anchor?: Signal<HTMLElement | null>;
+  /**
    * Cooldown duration in milliseconds.
    */
   readonly cooldown?: Signal<number>;
@@ -226,6 +249,7 @@ export const [
     flip: _flip = signal(true),
     shift: _shift = signal(undefined),
     context: _context = signal<T>(undefined as T),
+    anchor: _anchor,
     container: _container,
     scrollBehavior,
     cooldown,
@@ -247,6 +271,7 @@ export const [
     const shift = controlled(_shift);
     const offset = controlled(_offset);
     const context = controlled(_context);
+    const anchor = controlled<HTMLElement | null>(_anchor, null);
     const container = controlled(_container, 'body');
 
     // Internal state
@@ -272,7 +297,7 @@ export const [
       isPointerInAnchor: isPointerOverMenuArea,
       close: () => hide(),
       requireForwardMovement: true,
-      siblingContainer: () => triggerGroup()?.element.nativeElement ?? null,
+      siblingContainer: () => triggerGroup()?.siblingContainer() ?? null,
       onSuppressionChange: active =>
         active
           ? triggerGroup()?.setTransitSource(element.nativeElement)
@@ -544,6 +569,7 @@ export const [
       const config: NgpOverlayConfig<T> = {
         content: menu,
         triggerElement: element.nativeElement,
+        anchorElement: anchor,
         viewContainerRef,
         injector,
         context,
@@ -594,6 +620,10 @@ export const [
       context.set(newContext);
     }
 
+    function setAnchor(newAnchor: HTMLElement | null): void {
+      anchor.set(newAnchor);
+    }
+
     function setContainer(newContainer: HTMLElement | string | null): void {
       container.set(newContainer);
     }
@@ -628,6 +658,7 @@ export const [
       offset: deprecatedSetter(offset, 'setOffset', setOffset),
       disabled: deprecatedSetter(disabled, 'setDisabled', setDisabled),
       context: deprecatedSetter(context, 'setContext', setContext),
+      anchor: deprecatedSetter(anchor, 'setAnchor', setAnchor),
       open,
       openOrigin,
       show,
@@ -639,6 +670,7 @@ export const [
       setPlacement,
       setOffset,
       setContext,
+      setAnchor,
       setContainer,
       setPointerOverContent,
       flip,

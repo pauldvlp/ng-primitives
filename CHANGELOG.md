@@ -1,3 +1,93 @@
+## 0.130.2 (2026-09-01)
+
+### 🩹 Fixes
+
+- **interactions:** avoid NG0600 when a binding disables a focused element ([#934](https://github.com/ng-primitives/ng-primitives/pull/934))
+
+### ❤️ Thank You
+
+- Ashley Hunter
+
+## 0.130.1 (2026-08-13)
+
+### 🚀 Features
+
+- **menu:** support positioning the menu against a separate anchor element ([#921](https://github.com/ng-primitives/ng-primitives/pull/921))
+- **portal:** let an open overlay follow a changing anchor ([#922](https://github.com/ng-primitives/ng-primitives/pull/922))
+
+### 🩹 Fixes
+
+- **internal:** stop a stale enter frame overwriting the exit state ([#923](https://github.com/ng-primitives/ng-primitives/pull/923))
+- **number-field:** treat non-finite values and bounds as unset ([#919](https://github.com/ng-primitives/ng-primitives/pull/919), [#917](https://github.com/ng-primitives/ng-primitives/issues/917))
+- **slider:** set data-disabled on the range slider host when disabled from the start ([#914](https://github.com/ng-primitives/ng-primitives/pull/914), [#913](https://github.com/ng-primitives/ng-primitives/issues/913))
+
+### ❤️ Thank You
+
+- Alexander Ciesielski @alexciesielski
+- Ashley Hunter
+- Claude Opus 5 (1M context)
+- Rikesh Chhunju
+
+## 0.130.0 (2026-08-07)
+
+### 🩹 Fixes
+
+- **menu:** stop the trigger-group hover flickering between siblings ([#909](https://github.com/ng-primitives/ng-primitives/pull/909))
+
+### ❤️ Thank You
+
+- Ashley Hunter
+
+## 0.129.0 (2026-08-07)
+
+### 🩹 Fixes
+
+- **tooltip:** measure showOnOverflow on demand instead of observing ([#901](https://github.com/ng-primitives/ng-primitives/pull/901))
+
+### ❤️ Thank You
+
+- Ashley Hunter
+
+## 0.128.8 (2026-08-05)
+
+### 🚀 Features
+
+- **date-picker:** allow set start and end date on range picker ([#897](https://github.com/ng-primitives/ng-primitives/pull/897))
+
+### 🩹 Fixes
+
+- **ng-primitives:** allow TypeScript 6 by bumping tsquery to 6.2.0 ([#899](https://github.com/ng-primitives/ng-primitives/pull/899))
+
+### ❤️ Thank You
+
+- Anton Pieper @AntonPieper
+- Miguel Gremy @MGREMY
+
+## 0.128.7 (2026-08-03)
+
+### 🩹 Fixes
+
+- **internal:** defer the initial resize measurement to a microtask ([#895](https://github.com/ng-primitives/ng-primitives/pull/895), [#415](https://github.com/ng-primitives/ng-primitives/issues/415), [#692](https://github.com/ng-primitives/ng-primitives/issues/692))
+
+### ❤️ Thank You
+
+- Ashley Hunter
+
+## 0.128.6 (2026-07-31)
+
+### 🚀 Features
+
+- **file-upload:** add file upload/dropzone config ([#888](https://github.com/ng-primitives/ng-primitives/pull/888))
+
+### 🩹 Fixes
+
+- **menu:** shorten the hover corridor's idle wait over a sibling ([#889](https://github.com/ng-primitives/ng-primitives/pull/889))
+
+### ❤️ Thank You
+
+- Ashley Hunter
+- Marc Stammerjohann @marcjulian
+
 ## 0.128.5 (2026-07-30)
 
 ### 🚀 Features

@@ -12,6 +12,7 @@ export {
   createHoverBridgePolygon,
   getHoverBridgeDirection,
   HOVER_BRIDGE_DIRECTION_TOLERANCE_PX,
+  HOVER_BRIDGE_SIBLING_TIMEOUT_MS,
   HOVER_BRIDGE_TIMEOUT_MS,
   HoverBridgeDirection,
   HoverBridgePoint,
@@ -35,7 +36,6 @@ export * from './utilities/dom-removal';
 export * from './utilities/dom-sort';
 export * from './utilities/element-ref';
 export { fromMutationObserver } from './utilities/mutation-observer';
-export { setupOverflowListener } from './utilities/overflow';
 export { renderList, type NgpRenderListOptions } from './utilities/render-list';
 export { Dimensions, fromResizeEvent, injectDimensions, observeResize } from './utilities/resize';
 export * from './utilities/scrolling';
